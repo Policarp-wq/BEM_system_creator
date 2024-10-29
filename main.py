@@ -30,17 +30,33 @@ def create_css_file(class_name):
         os.makedirs(block_path)
     if not os.path.exists(block_css):
         f = open(block_css, 'x')
-        f.write(f'.{block} ' + '{\n\n}')
+        f.write(f'.{block} ' + '{\n\n}\n\n' + '''@media screen and (min-width: 1280px) {
+}
+@media screen and (max-width: 1024px) {
+}
+@media screen and (max-width: 768px) {
+}
+@media screen and (max-width: 320px) {
+}
+        ''')
         f.close()
-        imp.write(f'@import url({'..' + block_css[len(project_dir):]});\n')
+        imp.write(f'@import url({'..' + block_css[len(project_dir):]});\n'.replace('\\', '/'))
 
     if len(element) > 0 and not os.path.exists(element_path):
         os.makedirs(element_path)
     if len(element) > 0 and not os.path.exists(element_css):
         f = open(element_css, 'x')
-        f.write(f'.{class_name} ' + '{\n\n}')
+        f.write(f'.{class_name} ' + '{\n\n}\n\n' + '''@media screen and (min-width: 1280px) {
+}
+@media screen and (max-width: 1024px) {
+}
+@media screen and (max-width: 768px) {
+}
+@media screen and (max-width: 320px) {
+}
+        ''')
         f.close()
-        imp.write(f'@import url({'..' + element_css[len(project_dir):]});\n')
+        imp.write(f'@import url({'..' + element_css[len(project_dir):]});\n'.replace('\\', '/'))
     imp.close()
 def main():
     exist = set()
